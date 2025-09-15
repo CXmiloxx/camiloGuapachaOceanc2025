@@ -1,25 +1,47 @@
 {
   "name": "camiloguapachaoceanc2025",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
+  "description": "API en Node.js + TypeScript que consume datos de la NASA InSight Weather API, los almacena en una base de datos SQLite con Prisma ORM y permite hacer consultas inteligentes con Google Gemini.",
+  "license": "MIT",
+  "author": "Camilo Guapacha",
   "type": "commonjs",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "node dist/index.js",
     "build": "tsc",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "test": "echo \"No test specified\" && exit 0"
   },
+  "keywords": [
+    "nasa",
+    "gemini",
+    "google-ai",
+    "prisma",
+    "sqlite",
+    "typescript",
+    "express",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CXmiloxx/camiloGuapachaOceanc2025.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CXmiloxx/camiloGuapachaOceanc2025/issues"
+  },
+  "homepage": "https://github.com/CXmiloxx/camiloGuapachaOceanc2025#readme",
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.3.3",
     "prisma": "^6.16.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "eslint": "^9.11.0",
+    "prettier": "^3.3.3"
   },
   "dependencies": {
     "@google/genai": "^1.19.0",
@@ -28,7 +50,6 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "mime": "^4.1.0",
-    "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "zod": "^4.1.8"
   }
