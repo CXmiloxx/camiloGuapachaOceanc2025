@@ -2,6 +2,7 @@ import express from 'express';
 import { config } from './config/config';
 import nasaRoutes from './routes/nasa.routes';
 import { PrismaClient } from './generated/prisma';
+import cors from 'cors';
 
 class AppServer {
   public app: express.Application;
@@ -15,8 +16,23 @@ class AppServer {
     this.initializeDatabase();
   }
 
+
   private initializeMiddlewares(): void {
     this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: config.FRONTEND_URL || '*',
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: [
+          'Content-Type',
+          'Authorization',
+          'X-Requested-With',
+          'Accept',
+          'Origin',
+        ],
+      }),
+    );
   }
 
   private initializeRoutes(): void {
