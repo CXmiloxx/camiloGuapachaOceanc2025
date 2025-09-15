@@ -91,19 +91,39 @@ export class NasaController {
     try {
       const { question } = req.body;
 
-      if (!question) {
-        return res.status(400).json({ error: 'Se requiere una pregunta' });
+      if (!question || typeof question !== 'string') {
+        return res.status(400).json({
+          error: 'Se requiere una pregunta válida en el campo "question".',
+        });
       }
 
       // 1. Leer todos los registros de la BD
-      const records = await prisma.weather.findMany();
+      const records = await prisma.weather.findMany({
+        orderBy: { sol: 'asc' },
+      });
 
-      // 2. Pasar la pregunta y datos a Gemini
+      if (records.length === 0) {
+        return res.status(404).json({
+          question,
+          answer: 'No hay datos en la base de datos.',
+        });
+      }
+
+      // 2. Enviar a Gemini
       const answer = await this.askGemini.ask(question, records);
 
-      res.json({ question, answer });
+      return res.json({
+        success: true,
+        question,
+        answer,
+      });
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      console.error('Error en askQuestion:', error);
+
+      return res.status(500).json({
+        error: '❌ Error interno al procesar la pregunta con la IA',
+        details: error.message || 'Unexpected error',
+      });
     }
   };
 }
