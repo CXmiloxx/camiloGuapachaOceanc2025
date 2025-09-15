@@ -9,6 +9,7 @@ const envSchema = z.object({
   GOOGLE_API_KEY: z.string().min(1, "GOOGLE_API_KEY is required"),
   NASA_API_KEY: z.string().min(1, "NASA_API_KEY is required"),
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
+  FRONTEND_URL: z.string().url().optional(),
 
 });
 

@@ -5,5 +5,6 @@ declare namespace NodeJS {
     GOOGLE_API_KEY: string;
     NASA_API_KEY:string;
     DATABASE_URL:string;
+    FRONTEND_URL:string
   }
 }
